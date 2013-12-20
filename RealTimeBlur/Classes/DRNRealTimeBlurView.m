@@ -170,7 +170,9 @@
  * only if renderStatic = YES */
 - (void)willMoveToSuperview:(UIView*)superview
 {
-    [self renderLayerWithView:superview];
+    if (nil != self.superview) {
+        [self renderLayerWithView:superview];
+    }
 }
 
 /* When the view is visible because is being added to the superview 
@@ -191,6 +193,9 @@
 
 - (void)renderLayerWithView:(UIView*)superview
 {
+    if (!superview) {
+        return;
+    }
     //get the visible rect
     CGRect visibleRect = [superview convertRect:self.frame toView:self];
     visibleRect.origin.y += self.frame.origin.y;
